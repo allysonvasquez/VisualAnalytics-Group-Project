@@ -41,16 +41,22 @@ def load_data(): #Function that loads s ome data, puts it in a dataframe, and co
     df = pd.read_csv('hotel.csv', index_col='idx')
     return df
 
-st.title('TITLE?')
+st.title('Hotel Booking Insights')
 
 # load the data
 df = load_data()
 
 viz = st.sidebar.radio("Select a Visualization Below to View", ('Statistical Overview', 'viz2','viz3','blah','test')) #rename as needed
 
-# show the data in a table
-if viz == 'Show DataFrame':
+#allyson-------
+if viz == 'Statistical Overview':
+    st.header('Analysis & Statistical Overview')
+    st.subheader('The Dataset:')
     st.write(df)
+
+    option = st.selectbox('Select Your Hotel Type to Look at stats:', ('Resort Hotel', 'City Hotel'))
+    st.write('You selected:', option)
+#-------
 
 if viz == 'viz2':
     #your viz here
