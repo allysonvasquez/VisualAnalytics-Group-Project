@@ -34,6 +34,7 @@ https://www.kaggle.com/code/mortrest/hotel-booking-dataset-2-4
 Mandev
 https://www.kaggle.com/code/dangquangvu/hotel-booking-cleaning-data-bar-charts
     - create visualization showing percentage of bookings per year (can use above links as reference)
+    - Convert final product into Heroku
 
 '''
 
