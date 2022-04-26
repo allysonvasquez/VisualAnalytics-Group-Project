@@ -1,0 +1,2 @@
+2022-04-25 20:39:39,459:INFO:Initializing load_model()
+2022-04-25 20:39:39,459:INFO:load_model(model_name=rf_model, platform=None, authentication=None, verbose=True)

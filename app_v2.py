@@ -6,6 +6,38 @@ import streamlit as st
 import altair as alt
 from datetime import date
 
+#PREVIOUS SUBMISSIONS FOR REF
+#ref: https://webpages.charlotte.edu/eketeni/ITCS4122Final/website/index.html
+#ref: https://gdp-indicators-app.herokuapp.com/
+#ref: https://itcs-4122-5122-prj-team-3.github.io/demo/vis/comparison
+
+''' ---- TODO ----
+Allyson
+- Create section for radio buttons that will go to our visualizations
+- Create visualization displaying dataframe
+https://www.kaggle.com/code/anastasiyabirina/full-eda-and-visualization
+    - ref
+
+Vena
+    - Create a home page that introduces our group & topic/data (can pull info from our proposal assignment)
+https://www.kaggle.com/code/ajaysuram/hotel-booking-prediction
+    - convert some charts from here
+
+
+Alex
+https://www.kaggle.com/code/mortrest/hotel-booking-dataset-2-4
+    - Bar chart of hotel types
+    - Pie chart showing arrival_date_year (what year was most popular to get booked)
+    - Any feature on the x-axis. Y-axis = adr 
+        (adr = avg. daily rate. It is how much $ a customer paid for their hotel stay)
+
+Mandev
+https://www.kaggle.com/code/dangquangvu/hotel-booking-cleaning-data-bar-charts
+    - create visualization showing percentage of bookings per year (can use above links as reference)
+
+'''
+
+
 st.markdown("<h1 style='text-align: center; color: black;'>Hotel Booking Database</h1>", unsafe_allow_html=True)
 
 sample_source = pd.DataFrame({
