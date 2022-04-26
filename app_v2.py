@@ -34,7 +34,7 @@ from datetime import date
 # MANDEV
 #https://www.kaggle.com/code/dangquangvu/hotel-booking-cleaning-data-bar-charts
 #    - create visualization showing percentage of bookings per year (can use above links as reference)
-#    - Convert final product into Heroku
+#    - Convert final product into Heroku or github.io
 
 @st.cache
 def load_data(): #Function that loads s ome data, puts it in a dataframe, and converts the date 
@@ -46,8 +46,12 @@ st.title('TITLE?')
 # load the data
 df = load_data()
 
-viz = st.sidebar.radio("Select A Visualization Below", ('Show DataFrame', 'viz2','viz3','blah','test'))
+viz = st.sidebar.radio("Select a Visualization Below to View", ('Statistical Overview', 'viz2','viz3','blah','test')) #rename as needed
 
 # show the data in a table
 if viz == 'Show DataFrame':
     st.write(df)
+
+if viz == 'viz2':
+    #your viz here
+    st.write('hi')
