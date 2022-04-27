@@ -5,6 +5,7 @@ import numpy as np
 import streamlit as st
 import altair as alt
 from datetime import date
+import time
 
 #PREVIOUS SUBMISSIONS FOR REF
 #ref: https://webpages.charlotte.edu/eketeni/ITCS4122Final/website/index.html
@@ -14,15 +15,15 @@ from datetime import date
 # ---- TODO ----
 # ALLYSON
 #- Create section for radio buttons that will go to our visualizations
-#- Create visualization displaying dataframe
+#- Create visualization displaying dataframe & other exploratyory analysis
 #https://www.kaggle.com/code/anastasiyabirina/full-eda-and-visualization
+#https://www.kaggle.com/code/ajaysuram/hotel-booking-prediction
 #    - ref
 
 # VENA
 #    - Create a home page that introduces our group & topic/data (can pull info from our proposal assignment)
-#https://www.kaggle.com/code/ajaysuram/hotel-booking-prediction
+#    - explain what all the columns mean
 #    - convert some charts from here
-
 
 # ALEX
 #https://www.kaggle.com/code/mortrest/hotel-booking-dataset-2-4
@@ -38,18 +39,16 @@ from datetime import date
 
 @st.cache
 def load_data(): #Function that loads s ome data, puts it in a dataframe, and converts the date 
-    df = pd.read_csv('hotel.csv', index_col='idx')
+    df = pd.read_csv('hotel.csv', index_col='index')
     return df
 
 # load the data
 df = load_data()
+page = st.sidebar.radio("Select a Visualization Below to View", ('About the Data','Statistical Overview', 'Comparing Cost','ALEX','MANDEV')) #rename as needed
 
-st.title('Hotel Booking Insights')
-with st.sidebar:
-    viz = st.radio("Select a Visualization Below to View", ('Home','Statistical Overview', 'viz2','viz3','blah','test'), 0) #rename as needed
-
-#vena-------
-if viz == 'Home':
+#vena----
+if page == 'About the Data':
+    st.header('About the Data')
     st.write('ITCS 4122/5122 - Visual Analytics, Spring 2022')
     st.write('Project Team 6: Allyson Vasquez, Alex Miller, Vena Khamvanthong, Mandev Doshi')
 
@@ -114,20 +113,30 @@ if viz == 'Home':
                     'allow for interactivity with the dataset. We also utilized the Pandas and Numpy in Python in order to '+
                     'explore and clean the dataset.'
         )
-#-------
 
 #allyson-------
-if viz == 'Statistical Overview':
+if page == 'Statistical Overview':
     st.header('Analysis & Statistical Overview')
     st.subheader('The Dataset:')
     st.write(df)
+    #TODO: show mean, std, etc.
 
-    option = st.selectbox('Select Your Hotel Type to Look at stats:', ('Resort Hotel', 'City Hotel'))
-    st.write('You selected:', option)
-#-------
+#allyson-------
+if page == 'Comparing Cost':
+    option = st.selectbox('View the Average Cost of a Hotel Stay By...', ('Hotel Type', 'Country', 'Month', 'Year'))
 
+    st.subheader('Average Cost of Hotel Stay by ' + option)
+    if option == 'Hotel Type':
+        st.write(alt.Chart(df).mark_bar(color='purple').encode(x=alt.X('hotel:O', axis=alt.Axis(title='Hotel Type')), y=alt.Y('mean(total_cost)', axis=alt.Axis(title='Average Hotel Cost (USD)'))).properties(width=700,height=400))
+    elif option == 'Country':
+        st.write(alt.Chart(df).mark_bar(color='orange').encode(x=alt.X('country', axis=alt.Axis(title='Country (Abbreviated)')), y=alt.Y('mean(total_cost)', axis=alt.Axis(title='Average Hotel Cost (USD)'))).properties(width=2000,height=800))
+    elif option == 'Month':
+        st.write(alt.Chart(df).mark_bar(color='blue').encode(x=alt.X('arrival_date_month:O', axis=alt.Axis(title='Month')), y=alt.Y('mean(total_cost)', axis=alt.Axis(title='Average Hotel Cost (USD)'))).properties(width=800,height=600))
+    elif option == 'Year':
+        st.write(alt.Chart(df).mark_bar(color='green').encode(x=alt.X('arrival_date_year:O', axis=alt.Axis(title='Year')), y=alt.Y('mean(total_cost)', axis=alt.Axis(title='Average Hotel Cost (USD)'))).properties(width=600,height=300))
 
+if page == "ALEX":
+    st.write('placeholder')
 
-if viz == 'viz2':
-    #your viz here
-    st.write('hi')
+if page == "MANDEV":
+    st.write('placeholder')
