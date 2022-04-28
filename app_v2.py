@@ -139,4 +139,28 @@ if page == "ALEX":
     st.write('placeholder')
 
 if page == "MANDEV":
-    st.write('placeholder')
+    st.header('Percentage of bookings per year. ')
+
+    fig = plt.figure ( figsize = (10,5))
+    ax1 = fig.add_axes ([0,0,1,1])
+    ax2 = fig.add_axes ([0.75,0,1,1])
+    sns.countplot(data=df, x='arrival_date_day_of_month', ax=ax1, 
+              hue='arrival_date_year', order=df['arrival_date_day_of_month'].value_counts().index, palette="Set1")
+
+    years = dict(df['arrival_date_year'].value_counts())
+    ax2.pie(x=list(years.values()), labels=list(years.keys()), explode=[0.03]*3, autopct='%1.1f', shadow=True)
+    st.pyplot(fig)
+
+    st.header('Percentage of bookings in different countries. ')
+
+    fig1 = plt.figure(figsize=(13, 8))
+
+    sns.countplot(data=df, x='country', order=df['country'].value_counts().keys(), palette="Set2").set_xlim(0, 9)
+    st.pyplot(fig1)
+
+    st.header('Percentage of bookings based on market segment. ')
+
+    fig2 = plt.figure(figsize=(13, 8))
+    sns.countplot(data=df, x='market_segment', order=df['market_segment'].value_counts().keys(),  palette="Set1").set_xlim(0, 9)
+    st.pyplot(fig2)
+    
