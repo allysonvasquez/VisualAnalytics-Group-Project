@@ -1,5 +1,3 @@
-from gettext import npgettext
-from typing import Dict
 import matplotlib.pyplot as plt
 import seaborn as sns
 from turtle import color
@@ -7,8 +5,6 @@ import pandas as pd
 import numpy as np
 import streamlit as st
 import altair as alt
-from datetime import date
-import time
 
 #PREVIOUS SUBMISSIONS FOR REF
 #ref: https://webpages.charlotte.edu/eketeni/ITCS4122Final/website/index.html
