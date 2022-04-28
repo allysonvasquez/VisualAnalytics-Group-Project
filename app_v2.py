@@ -1,4 +1,5 @@
 from gettext import npgettext
+from typing import Dict
 import matplotlib.pyplot as plt
 import seaborn as sns
 from turtle import color
@@ -46,7 +47,7 @@ def load_data(): #Function that loads s ome data, puts it in a dataframe, and co
 
 # load the data
 df = load_data()
-page = st.sidebar.radio("Select a Visualization Below to View", ('About the Data','Statistical Overview', 'Comparing Cost','ALEX','MANDEV')) #rename as needed
+page = st.sidebar.radio("Select a Visualization Below to View", ('About the Data','Statistical Overview', 'Comparing Cost','Correlations','MANDEV')) #rename as needed
 
 #vena----
 if page == 'About the Data':
@@ -137,8 +138,42 @@ if page == 'Comparing Cost':
     elif option == 'Year':
         st.write(alt.Chart(df).mark_bar(color='green').encode(x=alt.X('arrival_date_year:O', axis=alt.Axis(title='Year')), y=alt.Y('mean(total_cost)', axis=alt.Axis(title='Average Hotel Cost (USD)'))).properties(width=600,height=300))
 
-if page == "ALEX":
-    st.write('placeholder')
+if page == "Correlations":
+    st.header('Viewing correlations between 2 statistics')
+    options_list = ('Number of nights stayed', 'Average Daily Rate', 'Lead Time', 'Booking Changes', 'Total Special Requests')
+    option1 = st.selectbox('X - axis', options_list)
+    option2 = st.selectbox('Y - axis', options_list, index=1)
+    
+    # df.drop([48515,14969], axis=0, inplace=True)
+
+
+    df_total_days_stayed = df["stays_in_weekend_nights"] + df["stays_in_week_nights"]
+
+    data_map = {
+        'Number of nights stayed':df_total_days_stayed,
+        'Average Daily Rate':df['total_cost'],
+        'Lead Time':df['lead_time'],
+        'Booking Changes':df['booking_changes'],
+        'Total Special Requests':df['total_of_special_requests']
+    }
+
+
+    chart_data = pd.DataFrame({
+       option1: data_map.get(option1),
+       option2: data_map.get(option2)
+    })
+
+    chart = alt.Chart(chart_data).mark_line().encode(
+    x=option1,
+    y=option2,
+    ).properties(
+    width=700,
+    height=500
+    )
+
+    st.altair_chart(chart)
+
+
 
 if page == "MANDEV":
     st.header('Percentage of bookings per year. ')
