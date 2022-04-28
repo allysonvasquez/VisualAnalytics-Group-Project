@@ -144,9 +144,6 @@ if page == "Correlations":
     options_list = ('Number of nights stayed', 'Average Daily Rate', 'Lead Time', 'Booking Changes', 'Total Special Requests')
     option1 = st.selectbox('X - axis', options_list)
     option2 = st.selectbox('Y - axis', options_list, index=1)
-    
-    # df.drop([48515,14969], axis=0, inplace=True)
-
 
     df_total_days_stayed = df["stays_in_weekend_nights"] + df["stays_in_week_nights"]
 
