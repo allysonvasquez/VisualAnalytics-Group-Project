@@ -47,7 +47,7 @@ def load_data(): #Function that loads s ome data, puts it in a dataframe, and co
 
 # load the data
 df = load_data()
-page = st.sidebar.radio("Select a Visualization Below to View", ('About the Data','Statistical Overview', 'Comparing Cost','Correlations','MANDEV')) #rename as needed
+page = st.sidebar.radio("Select a Visualization Below to View", ('About the Data','Statistical Overview', 'Comparing Cost','Correlations','Bookings Analytics')) #rename as needed
 
 #vena----
 if page == 'About the Data':
@@ -57,8 +57,8 @@ if page == 'About the Data':
 
     st.subheader('Project Overview')
     st.write(
-        "For our visualization project, we chose to use the Kaggle dataset,[Hotel Booking](https://www.kaggle.com/datasets/mojtaba142/hotel-booking). "+
-        "This dataset contains over 110,000 entries representing hotel bookings made between July 1, 2015 and August 31, 2017. "+ 
+        "For our visualization project, we chose to use the Kaggle dataset, [Hotel Booking](https://www.kaggle.com/datasets/mojtaba142/hotel-booking). " +
+        "This dataset contains over 110,000 entries representing hotel bookings made between July 1, 2015 and August 31, 2017. " + 
         "Our goals for this visualization are to determine that factors that influence booking cancellations and to find relationships between booking details, average daily rates, and final reservation status"
     )
 
@@ -130,14 +130,15 @@ if page == 'Comparing Cost':
 
     st.subheader('Average Cost of Hotel Stay by ' + option)
     if option == 'Hotel Type':
-        st.write(alt.Chart(df).mark_bar(color='purple').encode(x=alt.X('hotel:O', axis=alt.Axis(title='Hotel Type')), y=alt.Y('mean(total_cost)', axis=alt.Axis(title='Average Hotel Cost (USD)'))).properties(width=700,height=400))
+        st.write(alt.Chart(df).mark_bar(color='purple').encode(x=alt.X('hotel:O', axis=alt.Axis(title='Hotel Type')), y=alt.Y('mean(adr)', axis=alt.Axis(title='Average Hotel Cost (USD)'))).properties(width=700,height=400))
     elif option == 'Country':
-        st.write(alt.Chart(df).mark_bar(color='orange').encode(x=alt.X('country', axis=alt.Axis(title='Country (Abbreviated)')), y=alt.Y('mean(total_cost)', axis=alt.Axis(title='Average Hotel Cost (USD)'))).properties(width=2000,height=800))
+        st.write(alt.Chart(df).mark_bar(color='orange').encode(x=alt.X('country', axis=alt.Axis(title='Country (Abbreviated)')), y=alt.Y('mean(adr)', axis=alt.Axis(title='Average Hotel Cost (USD)'))).properties(width=2000,height=800))
     elif option == 'Month':
-        st.write(alt.Chart(df).mark_bar(color='blue').encode(x=alt.X('arrival_date_month:O', axis=alt.Axis(title='Month')), y=alt.Y('mean(total_cost)', axis=alt.Axis(title='Average Hotel Cost (USD)'))).properties(width=800,height=600))
+        st.write(alt.Chart(df).mark_bar(color='blue').encode(x=alt.X('arrival_date_month:O', axis=alt.Axis(title='Month')), y=alt.Y('mean(adr)', axis=alt.Axis(title='Average Hotel Cost (USD)'))).properties(width=800,height=600))
     elif option == 'Year':
-        st.write(alt.Chart(df).mark_bar(color='green').encode(x=alt.X('arrival_date_year:O', axis=alt.Axis(title='Year')), y=alt.Y('mean(total_cost)', axis=alt.Axis(title='Average Hotel Cost (USD)'))).properties(width=600,height=300))
+        st.write(alt.Chart(df).mark_bar(color='green').encode(x=alt.X('arrival_date_year:O', axis=alt.Axis(title='Year')), y=alt.Y('mean(adr)', axis=alt.Axis(title='Average Hotel Cost (USD)'))).properties(width=600,height=300))
 
+#alex-----
 if page == "Correlations":
     st.header('Viewing correlations between 2 statistics')
     options_list = ('Number of nights stayed', 'Average Daily Rate', 'Lead Time', 'Booking Changes', 'Total Special Requests')
@@ -151,7 +152,7 @@ if page == "Correlations":
 
     data_map = {
         'Number of nights stayed':df_total_days_stayed,
-        'Average Daily Rate':df['total_cost'],
+        'Average Daily Rate':df['adr'],
         'Lead Time':df['lead_time'],
         'Booking Changes':df['booking_changes'],
         'Total Special Requests':df['total_of_special_requests']
@@ -174,8 +175,8 @@ if page == "Correlations":
     st.altair_chart(chart)
 
 
-
-if page == "MANDEV":
+#mandev----
+if page == 'Bookings Analytics':
     st.header('Percentage of bookings per year. ')
 
     fig = plt.figure ( figsize = (10,5))
