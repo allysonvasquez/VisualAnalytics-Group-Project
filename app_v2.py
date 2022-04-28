@@ -121,8 +121,13 @@ if page == 'About the Data':
 if page == 'Statistical Overview':
     st.header('Analysis & Statistical Overview')
     st.subheader('The Dataset:')
-    st.write(df)
-    #TODO: show mean, std, etc.
+    st.dataframe(df)
+    
+    feature_list=['is_canceled', 'arrival_date_year','adults', 'children', 'babies', 'is_repeated_guest', 'previous_cancellations','adr','total_of_special_requests']
+    feature = st.selectbox('Select to view statistics on the following numeric features in the dataset:', (feature_list))
+    if feature:
+        desc = df[feature].describe()
+        st.table(desc)
 
 #allyson-------
 if page == 'Comparing Cost':
