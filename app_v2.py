@@ -1,4 +1,6 @@
 from gettext import npgettext
+import matplotlib.pyplot as plt
+import seaborn as sns
 from turtle import color
 import pandas as pd
 import numpy as np
