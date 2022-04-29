@@ -118,12 +118,17 @@ if page == 'Statistical Overview':
     st.header('Analysis & Statistical Overview')
     st.subheader('The Dataset:')
     st.dataframe(df)
-    
-    feature_list=['is_canceled', 'arrival_date_year','adults', 'children', 'babies', 'is_repeated_guest', 'previous_cancellations','adr','total_of_special_requests']
+    df_total_days_stayed = df["stays_in_weekend_nights"] + df["stays_in_week_nights"]
+
+    feature_list=['is_canceled', 'arrival_date_year','adults', 'children', 'babies', 'is_repeated_guest', 'previous_cancellations','adr','total_of_special_requests', 'total_days_stayed']
     feature = st.selectbox('Select to view statistics on the following numeric features in the dataset:', (feature_list))
     if feature:
-        desc = df[feature].describe()
-        st.table(desc)
+        if feature == 'total_days_stayed':
+            desc = df_total_days_stayed.describe()
+            st.table(desc)
+        else:
+            desc = df[feature].describe()
+            st.table(desc)
 
 #allyson-------
 if page == 'Comparing Cost':
